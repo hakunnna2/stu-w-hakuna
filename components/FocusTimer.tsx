@@ -6,8 +6,8 @@ interface FocusTimerProps {
   initialStats: UserStats;
 }
 
-const WORK_TIME = 25 * 60;
-const BREAK_TIME = 5 * 60;
+const WORK_TIME = 60 * 60;
+const BREAK_TIME = 10 * 60;
 
 const FocusTimer: React.FC<FocusTimerProps> = ({ updateStats, initialStats }) => {
   const [timeLeft, setTimeLeft] = useState(WORK_TIME);
