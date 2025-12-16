@@ -51,13 +51,6 @@ function App() {
     }));
   };
 
-  const addSessions = (newSessions: StudySession[]) => {
-    setData(prev => ({
-      ...prev,
-      sessions: [...prev.sessions, ...newSessions]
-    }));
-  };
-
   const addTask = (task: Task) => {
     setData(prev => ({ ...prev, tasks: [...prev.tasks, task] }));
   };
@@ -119,7 +112,6 @@ function App() {
             addExam={addExam} 
             updateExam={updateExam}
             deleteExam={deleteExam}
-            addSessions={addSessions}
           />
         );
       case 'tasks':

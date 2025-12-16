@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Plus, X, Trash2, Edit3 } from 'lucide-react';
 import { Exam, Difficulty, StudySession } from '../types';
-import { generateStudyPlan } from '../services/geminiService';
 
 interface ExamPlannerProps {
   exams: Exam[];
@@ -9,13 +8,11 @@ interface ExamPlannerProps {
   addExam: (exam: Exam) => void;
   updateExam: (exam: Exam) => void;
   deleteExam: (id: string) => void;
-  addSessions: (sessions: StudySession[]) => void;
 }
 
-const ExamPlanner: React.FC<ExamPlannerProps> = ({ exams, sessions, addExam, updateExam, deleteExam, addSessions }) => {
+const ExamPlanner: React.FC<ExamPlannerProps> = ({ exams, sessions, addExam, updateExam, deleteExam }) => {
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [loadingId, setLoadingId] = useState<string | null>(null);
   
   const [subject, setSubject] = useState('');
   const [date, setDate] = useState('');
@@ -66,13 +63,6 @@ const ExamPlanner: React.FC<ExamPlannerProps> = ({ exams, sessions, addExam, upd
     }
 
     cancelEdit();
-  };
-
-  const handleGeneratePlan = async (exam: Exam) => {
-    setLoadingId(exam.id);
-    const sessions = await generateStudyPlan(exam, new Date());
-    addSessions(sessions);
-    setLoadingId(null);
   };
 
   const sortedExams = [...exams].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
@@ -192,14 +182,6 @@ const ExamPlanner: React.FC<ExamPlannerProps> = ({ exams, sessions, addExam, upd
                 </div>
 
                 <div className="flex flex-row md:flex-col gap-2 items-end">
-                   <button
-                    onClick={() => handleGeneratePlan(exam)}
-                    disabled={loadingId === exam.id || daysLeft < 0}
-                    className="text-xs text-blue-400 hover:text-blue-300 hover:underline"
-                   >
-                     {loadingId === exam.id ? 'Generating Plan...' : '[ Generate Study Plan ]'}
-                   </button>
-
                    <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
                      <button
                       onClick={() => startEditing(exam)}
