@@ -82,7 +82,7 @@ const ExamPlanner: React.FC<ExamPlannerProps> = ({ exams, sessions, addExam, upd
       
       {/* Toolbar */}
       <div className="flex justify-between items-center border-b border-zinc-800 pb-4">
-        <h2 className="text-green-500 font-bold text-lg"> > Exam Configuration</h2>
+        <h2 className="text-green-500 font-bold text-lg"> &gt; Exam Configuration</h2>
         <button
           onClick={() => {
             if (isAdding) cancelEdit();
